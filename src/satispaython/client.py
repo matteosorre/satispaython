@@ -40,6 +40,23 @@ class SatispayClient(Client):
         target = URL(f'/g_business/v1/payments/{payment_id}')
         return self.get(target, headers=headers)
 
+    def cancel_or_refund_payment(
+        self,
+        payment_id: str,
+        action: str,
+        body_params: Optional[dict] = None,
+        headers: Optional[Headers] = None
+    ) -> Response:
+        target = URL(f'/g_business/v1/payments/{payment_id}')
+        try:
+            headers.update({'Content-Type': 'application/json'})
+        except AttributeError:
+            headers = Headers({'Content-Type': 'application/json'})
+        try:
+            body_params.update({'action': action})
+        except AttributeError:
+            body_params = {'action': action}
+        return self.post(target, json=body_params, headers=headers)
 
 class AsyncSatispayClient(AsyncClient):
 

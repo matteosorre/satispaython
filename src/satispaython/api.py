@@ -46,3 +46,16 @@ def get_payment_details(
 ) -> Response:
     with SatispayClient(key_id, rsa_key, staging) as client:
         return client.get_payment_details(payment_id, headers)
+
+
+def cancel_or_refund_payment(
+    key_id: str,
+    rsa_key: RSAPrivateKey,
+    payment_id: str,
+    action: str,
+    body_params: Optional[dict] = None,
+    headers: Optional[Headers] = None,
+    staging: bool = False
+) -> Response:
+    with SatispayClient(key_id, rsa_key, staging) as client:
+        return client.cancel_or_refund_payment(payment_id, action, body_params, headers)
