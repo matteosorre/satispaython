@@ -58,6 +58,25 @@ class SatispayClient(Client):
             body_params = {'action': action}
         return self.put(target, json=body_params, headers=headers)
 
+    def refund_payment(
+        self,
+        amount_unit: int,
+        currency: str,
+        body_params: Optional[dict] = None,
+        headers: Optional[Headers] = None
+    ) -> Response:
+        target = URL('/g_business/v1/payments')
+        try:
+            headers.update({'Content-Type': 'application/json'})
+        except AttributeError:
+            headers = Headers({'Content-Type': 'application/json'})
+        try:
+            body_params.update({'flow': 'REFUND', 'amount_unit': amount_unit, 'currency': currency})
+        except AttributeError:
+            body_params = {'flow': 'REFUND', 'amount_unit': amount_unit, 'currency': currency}
+        return self.post(target, json=body_params, headers=headers)
+
+
 class AsyncSatispayClient(AsyncClient):
 
     def __init__(self, key_id: str, rsa_key: RSAPrivateKey, staging: bool = False, **kwargs) -> None:

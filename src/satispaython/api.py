@@ -59,3 +59,15 @@ def cancel_or_refund_payment(
 ) -> Response:
     with SatispayClient(key_id, rsa_key, staging) as client:
         return client.cancel_or_refund_payment(payment_id, action, body_params, headers)
+
+def refund_payment(
+    key_id: str,
+    rsa_key: RSAPrivateKey,
+    amount_unit: int,
+    currency: str,
+    body_params: Optional[dict] = None,
+    headers: Optional[Headers] = None,
+    staging: bool = False
+) -> Response:
+    with SatispayClient(key_id, rsa_key, staging) as client:
+        return client.refund_payment(amount_unit, currency, body_params, headers)

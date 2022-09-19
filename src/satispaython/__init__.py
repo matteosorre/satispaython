@@ -15,6 +15,7 @@ __all__ = [
     'create_payment',
     'get_payment_details',
     'cancel_or_refund_payment',
+    'refund_payment',
     'SatispayClient',
     'AsyncSatispayClient',
     'SatispayAuth',
