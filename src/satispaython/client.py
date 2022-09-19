@@ -56,7 +56,7 @@ class SatispayClient(Client):
             body_params.update({'action': action})
         except AttributeError:
             body_params = {'action': action}
-        return self.post(target, json=body_params, headers=headers)
+        return self.put(target, json=body_params, headers=headers)
 
 class AsyncSatispayClient(AsyncClient):
 
