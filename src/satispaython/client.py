@@ -62,6 +62,7 @@ class SatispayClient(Client):
         self,
         amount_unit: int,
         currency: str,
+        parent_payment_uid: str,
         body_params: Optional[dict] = None,
         headers: Optional[Headers] = None
     ) -> Response:
@@ -71,9 +72,9 @@ class SatispayClient(Client):
         except AttributeError:
             headers = Headers({'Content-Type': 'application/json'})
         try:
-            body_params.update({'flow': 'REFUND', 'amount_unit': amount_unit, 'currency': currency})
+            body_params.update({'flow': 'REFUND', 'amount_unit': amount_unit, 'currency': currency, 'parent_payment_uid':parent_payment_uid})
         except AttributeError:
-            body_params = {'flow': 'REFUND', 'amount_unit': amount_unit, 'currency': currency}
+            body_params = {'flow': 'REFUND', 'amount_unit': amount_unit, 'currency': currency, 'parent_payment_uid':parent_payment_uid}
         return self.post(target, json=body_params, headers=headers)
 
 
