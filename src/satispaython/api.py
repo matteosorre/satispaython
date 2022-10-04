@@ -65,9 +65,10 @@ def refund_payment(
     rsa_key: RSAPrivateKey,
     amount_unit: int,
     currency: str,
+    parent_payment_uid: str,
     body_params: Optional[dict] = None,
     headers: Optional[Headers] = None,
     staging: bool = False
 ) -> Response:
     with SatispayClient(key_id, rsa_key, staging) as client:
-        return client.refund_payment(amount_unit, currency, body_params, headers)
+        return client.refund_payment(amount_unit, currency, parent_payment_uid, body_params, headers)
